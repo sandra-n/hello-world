@@ -5,7 +5,7 @@ Edit2
 
 Project's name: Projeto 0
 
-Project's description: Testing and training project
+Project's description: Projeto para teste e treinamento
 
 Environment and tools: Project in VSCode, Node.js (version 5.3.0) with Typescript, Express.js
 
