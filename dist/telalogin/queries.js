@@ -5,9 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var pg_1 = require("pg");
 var sha3_1 = __importDefault(require("sha3"));
-//import {jwt} from 'jsonwebtoken';
 var jwt = require("jsonwebtoken");
-//import Pool = require('pg').Pool;
 var pool = new pg_1.Pool({
     user: 'sandra',
     host: 'localhost',
@@ -16,13 +14,13 @@ var pool = new pg_1.Pool({
     port: 5432,
 });
 var hash = new sha3_1.default(512);
-function geraToken(nome) {
+function setToken(word) {
     var header = {
         "alg": "HS256",
         "typ": "JWT"
     };
     var payload = {
-        "name": nome
+        "name": word
     };
     var secret = 'umafrasequalquerparateste';
     return jwt.sign(payload, secret, { expiresIn: 1000 });
@@ -45,7 +43,7 @@ exports.verificaUsuario = function (req, res) {
             res.status(401).json();
         }
         else {
-            console.log(geraToken(email));
+            console.log(setToken(email));
             res.status(200).send(results.rows);
         }
     });
