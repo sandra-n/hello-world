@@ -3,6 +3,7 @@ import bodyParser = require('body-parser');
 import { verificaUsuario } from './queries';
 import { SHA3 } from 'sha3';
 
+
 const app: express.Application = express();
 app.use(bodyParser.json())
 
