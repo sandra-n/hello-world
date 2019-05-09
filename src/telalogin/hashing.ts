@@ -4,6 +4,6 @@ export function calculateHash(password: string): string {
     const hash = new SHA3(512);
     hash.reset();
     hash.update(password);
-    let hashUser = hash.digest('hex');
-    return hashUser;
+    let hashPassword = hash.digest('hex');
+    return hashPassword;
 }

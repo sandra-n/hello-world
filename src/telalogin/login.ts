@@ -2,11 +2,8 @@ import { AuthenticationMaker } from './checkuser';
 import { Pool } from 'pg';
 
 export function performLogin(req, res){
-    let emailGiven: string;
-    let senhaGiven: string;
-
-    emailGiven = req.body.email;
-    senhaGiven = req.body.senha;
+    const emailGiven = req.body.email;
+    const pwGiven = req.body.password;
 
     let pool = new Pool({
         user: 'sandra',
@@ -17,6 +14,6 @@ export function performLogin(req, res){
     });
 
     let objAM = new AuthenticationMaker(pool);
-    objAM.verifyUser(emailGiven, senhaGiven, res);
+    objAM.verifyUser(emailGiven, pwGiven, res);
     
 }
