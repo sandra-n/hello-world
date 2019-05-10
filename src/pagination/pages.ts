@@ -2,7 +2,10 @@ import jwt from 'jsonwebtoken'
 import { Pool, QueryResult } from 'pg';
 import bodyParser = require('body-parser');
 
-export function getList(req, res) {
+export function getListFrom(req, res) {
+
+  let fromA: number = Number(req.params.fromA);
+  let numberResults: number = Number(req.params.numberResults);
 
   let pool = new Pool({
     user: 'sandra',
@@ -14,7 +17,7 @@ export function getList(req, res) {
 
   let users: string[];
   users = [];
-  pool.query('SELECT name, email FROM usuarios', (error, results) => {
+  pool.query('SELECT * FROM (SELECT email, name, ROW_NUMBER() OVER (ORDER BY name) AS rownumb FROM usuarios) x WHERE rownumb BETWEEN $1 AND $2', [fromA, fromA+numberResults], (error, results) => {
     if(error) {
       throw error;
     } else {
@@ -24,8 +27,3 @@ export function getList(req, res) {
     }
   });
 }
-//machado.assis@gmail.com: m5678
-//sandra.nihama@taqtile.com: 1234
-//fulano.tal@taqtile.com: 9999
-//jorge.amado@gmail.com: jorge4
-//carlos.drummond@outlook.com: 4002
