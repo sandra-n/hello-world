@@ -1,16 +1,9 @@
 import jwt from 'jsonwebtoken'
 import { Pool, QueryResult } from 'pg';
 import bodyParser = require('body-parser');
+import { pool } from '../index';
 
 export function getList(req, res) {
-
-  let pool = new Pool({
-    user: 'sandra',
-    host: 'localhost',
-    database: 'listausuarios',
-    password: 'login',
-    port: 5432,
-  });
 
   let users: string[];
   users = [];

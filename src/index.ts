@@ -4,11 +4,12 @@ import { performLogin } from './telalogin/login';
 import { getList } from './onlineusers/allusers';
 import { Pool } from 'pg';
 import { getListFrom } from './pagination/pages';
+import { receiveInfo } from './signup/userinfo';
 
 const app: express.Application = express();
 app.use(bodyParser.json())
 
-export let pool = new Pool({
+export const pool = new Pool({
   user: 'sandra',
   host: 'localhost',
   database: 'listausuarios',
@@ -21,6 +22,7 @@ export let tokensList: string[] = [];
 app.post('/login', performLogin);
 app.get('/users', getList);
 app.get('/pages/:fromA/:numberResults', getListFrom);
+app.post('/signup', receiveInfo)
 
 app.listen(8080, function(){
   console.info('Running in port 8080!');
