@@ -2,7 +2,7 @@ import express = require('express');
 import bodyParser = require('body-parser');
 import { performLogin } from './telalogin/login';
 import { Pool } from 'pg';
-import { getList } from './pagination/pages';
+import { getList } from './onlineusers/allusers';
 
 const app: express.Application = express();
 app.use(bodyParser.json())
