@@ -5,10 +5,6 @@ import { stringify } from 'querystring';
 
 const secret = 'umafrasequalquerparateste';
 export function setToken(email: string): string {
-  const header = {
-    "alg": "HS256",
-    "typ": "JWT"
-  }
   const payload = {
     "email": email
   }
@@ -24,7 +20,4 @@ export function verifyToken(token: string): string {
     }
   })
   return JSON.stringify(obj);
-  //console.log ('obj: ' + JSON.stringify(obj));
-
-
 }

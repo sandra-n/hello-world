@@ -17,7 +17,5 @@ export class AuthenticationMaker {
         this.pool.query('SELECT * FROM usuarios WHERE email = $1 AND hash = $2', [email, hashUser], (error, results) => {
             queryErrors(error, results, res, email, hashUser);
         })
-
-    //const obj = new UsersList(this.pool);
     }
 }
