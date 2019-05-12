@@ -7,7 +7,7 @@ import { Pool } from 'pg';
 const app: express.Application = express();
 app.use(bodyParser.json())
 
-export let pool = new Pool({
+export const pool = new Pool({
   user: 'sandra',
   host: 'localhost',
   database: 'listausuarios',
@@ -16,7 +16,6 @@ export let pool = new Pool({
 });
 
 export let tokensList: string[] = [];
-//let obj = new OnlineUsersList();
 
 app.post('/login', performLogin);
 app.get('/users', getList);

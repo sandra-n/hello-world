@@ -1,6 +1,4 @@
 import jwt = require('jsonwebtoken');
-import { QueryResult } from 'pg';
-import { stringify } from 'querystring';
 //import jwt from 'jsonwebtoken';
 
 const secret = 'umafrasequalquerparateste';

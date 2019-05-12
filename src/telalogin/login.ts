@@ -13,7 +13,7 @@ export function performLogin(req, res){
         port: 5432,
     });
 
-    let objAM = new AuthenticationMaker(pool);
+    let objAM = new AuthenticationMaker();
     objAM.verifyUser(emailGiven, pwGiven, res);
-    
+
 }
