@@ -1,29 +1,27 @@
-import jwt from 'jsonwebtoken'
-import { Pool, QueryResult } from 'pg';
-import bodyParser = require('body-parser');
+import { pool } from '../index';
 
-export function getListFrom(req, res) {
+export function getList(req, res) {
 
-  let fromA: number = Number(req.params.fromA);
-  let numberResults: number = Number(req.params.numberResults);
+  let fromA: number = Number(req.query.fromA);
+  if (isNaN(fromA)) {
+    fromA = 0;
+  }
+  let numberResults: number = Number(req.query.numberResults);
+  if (isNaN(numberResults)){
+    numberResults = 10;
+  }
 
-  let pool = new Pool({
-    user: 'sandra',
-    host: 'localhost',
-    database: 'listausuarios',
-    password: 'login',
-    port: 5432,
-  });
-
-  let users: string[];
-  users = [];
-  pool.query('SELECT * FROM (SELECT email, name, ROW_NUMBER() OVER (ORDER BY name) AS rownumb FROM usuarios) x WHERE rownumb BETWEEN $1 AND $2', [fromA, fromA+numberResults], (error, results) => {
+  pool.query('SELECT email, name FROM usuarios ORDER BY name LIMIT $1 OFFSET $2', [numberResults, fromA], (error, results) => {
     if(error) {
       throw error;
     } else {
-      let finalResults = JSON.parse(JSON.stringify(results));
-      users.push(finalResults.rows);
-      res.json(users);
+      res.json(results.rows);
     }
   });
 }
+
+//machado.assis@gmail.com: m5678
+//sandra.nihama@taqtile.com: 1234
+//fulano.tal@taqtile.com: 9999
+//jorge.amado@gmail.com: jorge4
+//carlos.drummond@outlook.com: 4002
