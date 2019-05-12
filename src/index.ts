@@ -1,15 +1,13 @@
 import express = require('express');
 import bodyParser = require('body-parser');
 import { performLogin } from './telalogin/login';
-import { getList } from './onlineusers/allusers';
 import { Pool } from 'pg';
-import { getListFrom } from './pagination/pages';
-import { receiveInfo } from './signup/userinfo';
+import { getList } from './onlineusers/allusers';
 
 const app: express.Application = express();
 app.use(bodyParser.json())
 
-export const pool = new Pool({
+export let pool = new Pool({
   user: 'sandra',
   host: 'localhost',
   database: 'listausuarios',
@@ -20,10 +18,9 @@ export const pool = new Pool({
 export let tokensList: string[] = [];
 
 app.post('/login', performLogin);
-app.get('/users', getList);
-app.get('/pages/:fromA/:numberResults', getListFrom);
-app.post('/signup', receiveInfo)
+app.get('/users', getList); //'/pages?fromA={}&numberResults={}'
 
 app.listen(8080, function(){
   console.info('Running in port 8080!');
 });
+
