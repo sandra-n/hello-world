@@ -1,5 +1,3 @@
-import { Pool, QueryResult } from 'pg';
-import bodyParser = require('body-parser');
 import { pool } from '../index';
 
 export function getListFrom(req, res) {

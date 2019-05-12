@@ -1,6 +1,3 @@
-import jwt from 'jsonwebtoken'
-import { Pool, QueryResult } from 'pg';
-import bodyParser = require('body-parser');
 import { pool } from '../index';
 
 export function getList(req, res) {
