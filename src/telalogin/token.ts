@@ -1,6 +1,4 @@
 import jwt = require('jsonwebtoken');
-import { QueryResult } from 'pg';
-import { stringify } from 'querystring';
 //import jwt from 'jsonwebtoken';
 
 const secret = 'umafrasequalquerparateste';
@@ -11,7 +9,7 @@ export function setToken(email: string): string {
   return jwt.sign(payload, secret, {expiresIn: 5});
 }
 
-export function verifyToken(token: string): string {
+export function verifyToken(token: string) {
   const obj = jwt.verify(token, secret, function(error, decoded) {
     if (error)
       return error;
@@ -19,5 +17,5 @@ export function verifyToken(token: string): string {
       return decoded;
     }
   })
-  return JSON.stringify(obj);
+  return obj;
 }
