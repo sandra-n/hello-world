@@ -1,4 +1,4 @@
-import { pool } from '../index';
+import { pool } from '../';
 import { calculateHash } from './hashing';
 import { queryErrors } from './errors';
 

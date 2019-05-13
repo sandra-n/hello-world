@@ -1,6 +1,6 @@
 import { QueryResult } from "pg";
 import { setToken } from './token';
-import { tokensList } from '../index'
+import { tokensList } from '../'
 
 export function queryErrors (error: Error,results: QueryResult, res, email: string, hash: string) : boolean{
   if (error) {

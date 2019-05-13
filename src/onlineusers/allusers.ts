@@ -1,4 +1,4 @@
-import { pool } from '../index';
+import { pool } from '../';
 
 export function getList(req, res) {
 
