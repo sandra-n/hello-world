@@ -2,13 +2,20 @@ import jwt = require('jsonwebtoken');
 //import jwt from 'jsonwebtoken';
 
 const secret = 'umafrasequalquerparateste';
-export function setToken (email: string): string {
-    const header = {
-        "alg": "HS256",
-        "typ": "JWT"
+export function setToken(email: string): string {
+  const payload = {
+    "email": email
+  }
+  return jwt.sign(payload, secret, {expiresIn: 5});
+}
+
+export function verifyToken(token: string): string {
+  const obj = jwt.verify(token, secret, function(error, decoded) {
+    if (error)
+      return error;
+    else {
+      return decoded;
     }
-    const payload = {
-        "email": email
-    }
-    return jwt.sign (payload, secret, {expiresIn: 1000});
+  })
+  return JSON.stringify(obj);
 }
