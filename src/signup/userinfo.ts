@@ -1,5 +1,5 @@
 import { User } from "./createuser";
-import { pool } from '../index';
+import { pool } from '../';
 
 export function receiveInfo(req, res) {
   let name = req.body.name;

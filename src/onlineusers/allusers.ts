@@ -24,10 +24,3 @@ export function getList(req, res) {
   else
     res.status(401).send('You\'re not able to continue');
 }
-
-//machado.assis@gmail.com: m5678
-//sandra.nihama@taqtile.com: 1234
-//fulano.tal@taqtile.com: 9999
-//jorge.amado@gmail.com: jorge4
-//carlos.drummond@outlook.com: 4002
-//neymar.jr@taqtile.com: 0205

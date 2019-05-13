@@ -1,5 +1,5 @@
 import { AuthenticationMaker } from './checkuser';
-import { pool } from '../index';
+import { pool } from '../';
 
 export function performLogin(req, res){
     const emailGiven = req.body.email;

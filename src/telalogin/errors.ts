@@ -1,8 +1,8 @@
 import { QueryResult } from "pg";
-import { setToken, verifyToken } from './token';
+import { setToken } from './token';
 import { tokensList } from '../index'
 
-export function queryErrors (error: Error,results: QueryResult, req, res, email: string, hash: string) : boolean{
+export function queryErrors (error: Error,results: QueryResult, res, email: string) : boolean{
   if (error) {
     throw error;
   }
@@ -12,11 +12,7 @@ export function queryErrors (error: Error,results: QueryResult, req, res, email:
       return false;
   } else {
     let userToken = setToken(email);
-    console.log('token: ' + userToken);
     tokensList.push(userToken);
-    //console.log('olaa'+ JSON.stringify(verifyToken(userToken)));
-    //console.log('olaa'+ verifyToken(req, res));
-    console.log('lista: '+tokensList);
     res.status(200).json(userToken);
     return true;
   }
