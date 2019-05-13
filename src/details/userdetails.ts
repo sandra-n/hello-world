@@ -1,14 +1,20 @@
 import { pool } from '../index';
+import { verifyToken } from '../telalogin/token';
 
 export function detailUser(req, res) {
 
-  let id: number = Number(req.query.id);
-  pool.query('SELECT name, email, cpf, birthDate, role FROM usuarios ORDER BY name LIMIT 1 OFFSET $1', [id], (error, results) => {
-    if(error) {
-      return error;
-    } else {
-      res.json(results.rows);
-    }
-  });
-  //nao emite hash
+  let id: number = Number(req.params.id);
+
+  if(verifyToken(req, res) == true) {
+    pool.query('SELECT name, email, cpf, birthDate, role FROM usuarios LIMIT 1 OFFSET $1', [id], (error, results) => {
+      if(error) {
+        return error;
+      } else {
+        res.json(results.rows);
+      }
+    });
+    //nao emite hash
+  }
+  else
+    res.status(401).send('You\'re not able to continue');
 }

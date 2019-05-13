@@ -6,6 +6,6 @@ export function performLogin(req, res){
     const pwGiven = req.body.password;
 
     let objAM = new AuthenticationMaker(pool);
-    objAM.verifyUser(emailGiven, pwGiven, res);
+    objAM.verifyUser(emailGiven, pwGiven, req, res);
 
 }
