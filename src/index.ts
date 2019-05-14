@@ -5,6 +5,7 @@ import { Pool } from 'pg';
 import { getList } from './onlineusers/allusers';
 import { detailUser } from './details/userdetails';
 import { receiveInfo } from './signup/userinfo';
+import { reauthenticate } from './reauthentication/reauthenticate';
 
 const app: express.Application = express();
 app.use(bodyParser.json())
@@ -23,6 +24,7 @@ app.post('/login', performLogin);
 app.get('/users', getList); //'/users?offset={}&numberResults={}'
 app.get('/details/:id', detailUser);
 app.post('/signup', receiveInfo);
+app.post('/reauthenticate', reauthenticate);
 
 app.listen(8080, function(){
   console.info('Running in port 8080!');
