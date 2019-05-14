@@ -1,5 +1,4 @@
 import jwt = require('jsonwebtoken');
-import { resolve } from 'dns';
 //import jwt from 'jsonwebtoken';
 
 const secret = 'umafrasequalquerparateste';
@@ -21,10 +20,12 @@ export function verifyToken(token: string, res): boolean {
     if(error) {
       res.status(401);
       answer = false;
+      console.log('token deu ruim');
       return error;
     }
     else {
       answer = true;
+      console.log('token deu bom');
       return decoded;
     }
   })

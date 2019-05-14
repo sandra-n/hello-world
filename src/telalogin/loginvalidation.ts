@@ -1,6 +1,6 @@
 import { QueryResult } from "pg";
 import { setToken } from './token';
-import { tokensList } from '../'
+import { tokensList } from '..'
 import { setRefreshToken } from "../refreshtoken/refreshtoken";
 
 export function loginValidation (error: Error, results: QueryResult, res, email: string) : boolean{

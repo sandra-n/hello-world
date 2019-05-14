@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 import { calculateHash } from './hashing';
-import { loginValidation } from './errors';
+import { loginValidation } from './loginvalidation';
 
 export class AuthenticationMaker {
     pool: Pool;

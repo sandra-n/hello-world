@@ -20,23 +20,23 @@ export function setRefreshToken(email: string): string {
 }
 
 
-export function verifyRefreshToken(refreshToken: string, res): boolean {
+export function verifyRefreshToken(refreshToken: string, res, ): Promise<boolean> {
   const splitToken = (refreshToken.split(" ", 2))[1];
   console.log(splitToken);
 
   let answer: boolean = false;
 
-  jwt.verify(splitToken, refreshSecret, function(error, decoded) {
-    if(error) {
-      res.status(401);
-      answer = false;
-      return error;
-    }
-    else {
-      answer = true;
-      return decoded;
-    }
-  });
-  console.log('oi',answer);
-  return answer;
+  return new Promise((resolve, reject) => {
+    jwt.verify(splitToken, refreshSecret, function(error, decoded) {
+      if(error) {
+        res.status(401);
+        console.log('deu erro');
+        resolve(false);
+      }
+      else {
+        console.log('deu bom');
+        resolve(true);
+      }
+    });
+  })
 }
