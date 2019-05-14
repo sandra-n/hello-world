@@ -1,26 +1,22 @@
 import { pool } from '../index';
 import { verifyToken } from '../telalogin/token';
 
+
 export function getList(req, res) {
 
-  let offset: number = Number(req.query.offset);
-  if (!offset) {
-    offset = 0;
-  }
-  let numberResults: number = Number(req.query.numberResults);
-  if (!numberResults){
-    numberResults = 10;
-  }
-
   if(verifyToken(req, res) == true) {
-    pool.query('SELECT email, name FROM usuarios ORDER BY name LIMIT $1 OFFSET $2', [numberResults, offset], (error, results) => {
-      if(error) {
-        throw error;
-      } else {
-        res.json(results.rows);
-      }
-    });
+    lisUsers(req.query.offset, req.query.numberResults, res);
   }
   else
     res.status(401).send('You\'re not able to continue');
+}
+
+function lisUsers(offset: number = 0, numberResults: number = 10, res) {
+  pool.query('SELECT email, name FROM usuarios ORDER BY name LIMIT $1 OFFSET $2', [numberResults, offset], (error, results) => {
+    if(error) {
+      throw error;
+    } else {
+      res.json(results.rows);
+    }
+  });
 }
