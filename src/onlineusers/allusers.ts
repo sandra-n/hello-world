@@ -3,8 +3,8 @@ import { verifyToken } from '../telalogin/token';
 
 
 export function getList(req, res) {
-
-  if(verifyToken(req, res) == true) {
+  const token = req.headers.authorization;
+  if(verifyToken(token, res)) {
     lisUsers(req.query.offset, req.query.numberResults, res);
   }
   else

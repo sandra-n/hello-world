@@ -3,11 +3,11 @@ import { pool } from '../';
 
 const refreshSecret: string = "senhaparaorefresh";
 
-export function setRefreshToken(res, email: string): string {
+export function setRefreshToken(email: string): string {
   const payload = {
     "email": email
   }
-  const userRefreshToken = jwt.sign(payload, refreshSecret, {expiresIn: 3000}); //50 min
+  const userRefreshToken = jwt.sign(payload, refreshSecret, {expiresIn: '50m'}); //50 min
   pool.query('UPDATE usuarios SET refreshToken = $1 WHERE email = $2', [userRefreshToken, email], (error, results) => {
     if(error) {
       return error;
@@ -37,5 +37,6 @@ export function verifyRefreshToken(refreshToken: string, res): boolean {
       return decoded;
     }
   });
+  console.log('oi',answer);
   return answer;
 }

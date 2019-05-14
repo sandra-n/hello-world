@@ -1,19 +1,18 @@
 import jwt = require('jsonwebtoken');
+import { resolve } from 'dns';
 //import jwt from 'jsonwebtoken';
 
 const secret = 'umafrasequalquerparateste';
 
-export function setToken(res, email: string): string {
+export function setToken(email: string): string {
   const payload = {
     "email": email
   }
-  const token = jwt.sign(payload, secret, {expiresIn: 60});
+  const token = jwt.sign(payload, secret, {expiresIn: '5m'});
   return token; //5 min
 }
 
-export function verifyToken(req, res): boolean {
-
-  const token: string = req.headers.authorization;
+export function verifyToken(token: string, res): boolean {
   const splitToken = (token.split(" ", 2))[1];
 
   let answer: boolean = false;
@@ -28,7 +27,8 @@ export function verifyToken(req, res): boolean {
       answer = true;
       return decoded;
     }
-  });
+  })
   return answer;
+
 }
 

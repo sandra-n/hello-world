@@ -11,8 +11,8 @@ export function reauthenticate(req, res) {
     } else {
       const email = JSON.stringify(results.rows);
       if(verifyRefreshToken(refreshToken, res)) {
-        let userToken = setToken(res, email);
-        let userRefreshToken = setRefreshToken(res, email);
+        let userToken = setToken(email);
+        let userRefreshToken = setRefreshToken(email);
         res.json('Access Token: '+userToken+', Refresh Token: '+userRefreshToken);
       }
     }
