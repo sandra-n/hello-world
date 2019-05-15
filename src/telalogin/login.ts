@@ -1,11 +1,8 @@
-import { AuthenticationMaker } from './checkuser';
-import { pool } from '../';
+import { logUser } from './checkuser';
 
-export function performLogin(req, res){
+export function performLogin(req, res){ //View
     const emailGiven = req.body.email;
     const pwGiven = req.body.password;
 
-    let objAM = new AuthenticationMaker(pool);
-    objAM.verifyUser(emailGiven, pwGiven, res);
-
+    logUser(emailGiven, pwGiven);
 }
