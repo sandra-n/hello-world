@@ -11,7 +11,28 @@ export function setToken(email: string): string {
   return token; //5 min
 }
 
-export function verifyToken(token: string, res): boolean {
+
+export function verifyToken(token: string, res): Promise<boolean> {
+  const splitToken = (token.split(" ", 2))[1];
+
+  let answer: boolean = false;
+
+  return new Promise((resolve, reject) => {
+    jwt.verify(splitToken, secret, function(error, decoded) {
+      if(error) {
+        res.status(401);
+        console.log('token deu ruim');
+        resolve(false);
+      }
+      else {
+        answer = true;
+        console.log('token deu bom');
+        resolve(true);
+      }
+    });
+  });
+}
+/*export function verifyToken(token: string, res): boolean {
   const splitToken = (token.split(" ", 2))[1];
 
   let answer: boolean = false;
@@ -31,5 +52,5 @@ export function verifyToken(token: string, res): boolean {
   })
   return answer;
 
-}
+}*/
 

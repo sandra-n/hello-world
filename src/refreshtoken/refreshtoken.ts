@@ -20,7 +20,7 @@ export function setRefreshToken(email: string): string {
 }
 
 
-export function verifyRefreshToken(refreshToken: string, res, ): Promise<boolean> {
+export function verifyRefreshToken(refreshToken: string, res): Promise<boolean> {
   const splitToken = (refreshToken.split(" ", 2))[1];
   console.log(splitToken);
 
@@ -31,6 +31,7 @@ export function verifyRefreshToken(refreshToken: string, res, ): Promise<boolean
       if(error) {
         res.status(401);
         console.log('deu erro');
+        console.log(error);
         resolve(false);
       }
       else {

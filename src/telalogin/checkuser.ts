@@ -1,19 +1,29 @@
-import { Pool } from 'pg';
 import { calculateHash } from './hashing';
-import { loginValidation } from './loginvalidation';
+import { setToken } from './token';
+import { setRefreshToken } from '../refreshtoken/refreshtoken';
+import { pool } from '../';
 
-export class AuthenticationMaker {
-    pool: Pool;
+export function logUser(email: string, password: string) { //Use Case
+  const hashUser = calculateHash(password);
+  if(checkUserLogin(email, hashUser)) {
+    createTokens(email);
+  }
+}
 
-    constructor (poolP: Pool) {
-        this.pool = poolP;
+function checkUserLogin(email: string, hashUser: string): boolean { //Datasource
+  let flag: boolean = false;
+  pool.query('SELECT * FROM usuarios WHERE email = $1 AND hash = $2', [email, hashUser], (error, results) => {
+    if(error) {
+      flag = false;
+      return error;
+    } else {
+      flag = true;
     }
+  });
+  return flag;
+}
 
-    verifyUser(email, password, res) {
-        var hashUser = calculateHash(password);
-
-        this.pool.query('SELECT * FROM usuarios WHERE email = $1 AND hash = $2', [email, hashUser], (error, results) => {
-            loginValidation(error, results, res, email);
-        })
-    }
+function createTokens(email: string) { //"Use Case"
+  setToken(email);
+  setRefreshToken(email);
 }
