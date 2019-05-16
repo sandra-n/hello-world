@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { pool } from '../';
+import { pool } from '../../project-view/';
 
 const refreshSecret: string = "senhaparaorefresh";
 

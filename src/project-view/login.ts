@@ -1,4 +1,4 @@
-import { logUser } from './checkuser';
+import { logUser } from '../telalogin/checkuser';
 
 export function performLogin(req, res){ //View
     const emailGiven = req.body.email;

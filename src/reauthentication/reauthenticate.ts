@@ -1,6 +1,6 @@
-import { pool } from '../index';
-import { setToken } from '../telalogin/token';
-import { setRefreshToken, verifyRefreshToken } from '../refreshtoken/refreshtoken';
+import { pool } from '../project-view/index';
+import { setToken } from '../project-api/tokens/token';
+import { setRefreshToken, verifyRefreshToken } from '../project-api/refreshtoken/refreshtoken';
 
 export function reauthenticate(req, res) {
   const refreshToken = req.headers.authorization;

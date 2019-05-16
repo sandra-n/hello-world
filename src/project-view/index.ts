@@ -1,11 +1,11 @@
 import express = require('express');
 import bodyParser = require('body-parser');
-import { performLogin } from './telalogin/login';
+import { performLogin } from '../telalogin/login';
 import { Pool } from 'pg';
-import { getList } from './onlineusers/allusers';
-import { detailUser } from './details/userdetails';
-import { receiveInfo } from './signup/userinfo';
-import { reauthenticate } from './reauthentication/reauthenticate';
+import { getList } from '../onlineusers/allusers';
+import { detailUser } from '../details/userdetails';
+import { receiveInfo } from '../signup/userinfo';
+import { reauthenticate } from '../reauthentication/reauthenticate';
 
 const app: express.Application = express();
 app.use(bodyParser.json())
