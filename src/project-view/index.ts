@@ -1,6 +1,6 @@
 import express = require('express');
 import bodyParser = require('body-parser');
-import { performLogin } from '../telalogin/login';
+import { performLogin } from './login/perform-login';
 import { Pool } from 'pg';
 import { getList } from '../onlineusers/allusers';
 import { detailUser } from '../details/userdetails';

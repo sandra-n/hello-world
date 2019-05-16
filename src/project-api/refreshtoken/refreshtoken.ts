@@ -16,6 +16,7 @@ export function setRefreshToken(email: string): string {
       return results;
     }
   });
+  console.log(userRefreshToken);
   return userRefreshToken;
 }
 

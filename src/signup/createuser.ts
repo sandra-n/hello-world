@@ -19,7 +19,7 @@ export class User {
   }
 }
 
-export function registerUser(res, user: User) { //UserCreate
+export function registerUserDatasource(res, user: User) { //UserCreate
   let hashedPassword = calculateHash(user.password);
   pool.query('INSERT INTO usuarios (name, email, cpf, birthDate, hash, role) VALUES\
 ($1, $2, $3, $4, $5, $6) RETURNING name', [user.name, user.email, user.cpf, user.birthDate, hashedPassword, user.role])

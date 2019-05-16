@@ -1,7 +1,7 @@
-import { calculateHash } from './hashing';
-import { setToken } from './token';
-import { setRefreshToken } from '../refreshtoken/refreshtoken';
-import { pool } from '../';
+import { calculateHash } from '../project-api/login/calculate-hash';
+import { setToken } from '../project-api/tokens/token';
+import { setRefreshToken } from '../project-api/refreshtoken/refreshtoken';
+import { pool } from '../project-view';
 
 export function logUser(email: string, password: string) { //Use Case
   const hashUser = calculateHash(password);
@@ -10,10 +10,9 @@ export function logUser(email: string, password: string) { //Use Case
   }
 }
 
-async function checkUserLogin(email: string, hashUser: string): Promise<boolean> { //Datasource
+async function checkUserLogin(email: string, hashUser: string): Promise<boolean> {
     const result = await pool.query('SELECT * FROM usuarios WHERE email = $1 AND hash = $2', [email, hashUser]);
-    console.log(result);
-    return false;
+    return result.rowCount > 0;
   // let flag: boolean = false;
   // pool.query('SELECT * FROM usuarios WHERE email = $1 AND hash = $2', [email, hashUser], (error, results) => {
   //   if(error) {

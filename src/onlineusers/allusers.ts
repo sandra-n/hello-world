@@ -1,5 +1,5 @@
-import { pool } from '../index';
-import { verifyToken } from '../telalogin/token';
+import { pool } from '../project-view/index';
+import { verifyToken } from '../project-api/tokens/token';
 
 
 export function getList(req, res) {
