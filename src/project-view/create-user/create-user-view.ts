@@ -1,4 +1,4 @@
-import { User } from "../../project-api/user/user";
+import { UserSignedUp } from "../../project-api/user/user-signed-up";
 import { registerUserDatasource } from "../../project-datasource/register-user/register-user";
 
 export function createUserView(req, res) {
@@ -9,6 +9,6 @@ export function createUserView(req, res) {
   let password = req.body.password;
   let role = req.body.role;
 
-  let newUser = new User(name, email, cpf, birthDate, password, role);
+  let newUser = new UserSignedUp(name, email, cpf, birthDate, password, role);
   registerUserDatasource(res, newUser);
 }

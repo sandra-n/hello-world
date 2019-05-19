@@ -1,14 +1,25 @@
-import jwt from 'jsonwebtoken';
-import { pool } from '../../project-view/';
+//import jwt from 'jsonwebtoken';
+import jwt = require('jsonwebtoken');
+import { userRepo } from '../../project-view';
+import { resolve } from 'path';
+//import { pool } from '../../project-view/';
 
 const refreshSecret: string = "senhaparaorefresh";
 
-export function setRefreshToken(email: string): string {
+export async function setRefreshToken(email: string): Promise<string> {
   const payload = {
     "email": email
   }
-  const userRefreshToken = jwt.sign(payload, refreshSecret, {expiresIn: '50m'}); //50 min
-  pool.query('UPDATE usuarios SET refreshToken = $1 WHERE email = $2', [userRefreshToken, email], (error, results) => {
+  const userRefreshToken = jwt.sign(payload, refreshSecret, {expiresIn: 500000}); //50 min
+
+  const result = await userRepo.findOne({
+    email: email
+  });
+  result.refreshToken = userRefreshToken;
+  await userRepo.save(result);
+
+  return userRefreshToken;
+  /*pool.query('UPDATE usuarios SET refreshToken = $1 WHERE email = $2', [userRefreshToken, email], (error, results) => {
     if(error) {
       return error;
     }
@@ -18,25 +29,22 @@ export function setRefreshToken(email: string): string {
   });
   console.log(userRefreshToken);
   return userRefreshToken;
+  */
 }
 
 
-export function verifyRefreshToken(refreshToken: string, res): Promise<boolean> {
-  const splitToken = (refreshToken.split(" ", 2))[1];
-  console.log(splitToken);
+export async function verifyRefreshToken(refreshToken: string, res): Promise<boolean> {
+  console.log(refreshToken);
 
   let answer: boolean = false;
 
   return new Promise((resolve, reject) => {
-    jwt.verify(splitToken, refreshSecret, function(error, decoded) {
+    jwt.verify(refreshToken, refreshSecret, function(error, decoded) {
       if(error) {
         res.status(401);
-        console.log('deu erro');
-        console.log(error);
         resolve(false);
       }
       else {
-        console.log('deu bom');
         resolve(true);
       }
     });

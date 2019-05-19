@@ -1,18 +1,31 @@
-import { pool } from '../../project-view';
+import { userRepo } from '../../project-view';
 import { verifyRefreshToken, setRefreshToken } from '../../project-api/refreshtoken/refreshtoken';
 import { setToken } from '../../project-api/tokens/token';
+import { User } from '../../entity/User';
 
-export function reauthenticateDatasource(res, refreshToken: string){
-  pool.query('SELECT email FROM usuarios WHERE refreshToken = $1', [refreshToken], async (error, results) => {
-    if(error){
-      return error;
-    } else {
-      const email = JSON.stringify(results.rows);
-      if(await verifyRefreshToken(refreshToken, res)) {
-        let userToken = setToken(email);
-        let userRefreshToken = setRefreshToken(email);
-        res.json('Access Token: '+userToken+', Refresh Token: '+userRefreshToken);
-      }
+export async function reauthenticateDatasource(res, completeRefreshToken: string): Promise<User | undefined>{
+  let refreshToken = completeRefreshToken.split(" ", 2)[1];
+  const result = await userRepo.findOne({
+    where: {
+      refreshToken: refreshToken
     }
-  });
+  })
+  let userToken: string;
+  let userRefreshToken: string;
+
+  if(result) {
+    let email: string = result.email;
+    if(await verifyRefreshToken(refreshToken, res)) {
+      userToken = setToken(email);
+      userRefreshToken = await setRefreshToken(email);
+      res.status(200).json({userToken: userToken, userRefreshToken: userRefreshToken});
+    }
+    else {
+      res.status(401).json("Unauthorized");
+    }
+  }
+  else {
+    res.status(404).json("User not found");
+  }
+  return result;
 }
