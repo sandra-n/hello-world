@@ -1,4 +1,4 @@
-import { userRepo } from '../../project-view/'
+import { userRepo } from '../../project-view/db-setup'
 import { User } from '../../entity/User';
 
 export async function getUsersInList(offset: number = 0, numberResults: number = 10, res): Promise<User[]> {

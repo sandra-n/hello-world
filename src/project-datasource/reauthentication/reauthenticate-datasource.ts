@@ -1,4 +1,4 @@
-import { userRepo } from '../../project-view';
+import { userRepo } from '../../project-view/db-setup';
 import { verifyRefreshToken, setRefreshToken } from '../../project-api/refreshtoken/refreshtoken';
 import { setToken } from '../../project-api/tokens/token';
 import { User } from '../../entity/User';

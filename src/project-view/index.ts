@@ -7,10 +7,9 @@ import { reauthenticateView } from './reauthentication/reauthenticate-view';
 import { detailedUser } from './user-details/detailed-user';
 import { getUsersListView } from './users-list/get-users-list-view';
 import "reflect-metadata";
-import {createConnection, getConnection, Repository} from "typeorm";
-import {User} from "../entity/User";
 
-const app: express.Application = express();
+
+export const app: express.Application = express();
 app.use(bodyParser.json())
 
 /*export let pool = new Pool({
@@ -21,28 +20,6 @@ app.use(bodyParser.json())
   port: 5432,
 });
 */
-export let userRepo: Repository<User>;
-
-createConnection({
-  type: "postgres",
-  host: "localhost",
-  port: 5432,
-  username: "sandra",
-  password: "login",
-  database: "listausuarios",
-  entities: [User],
-  synchronize: true,
-  logging: false
-}).then(async connection => {
-  initialize();
-  console.log("Connected with database.");
-}).catch(error => console.log(error));
-
-const initialize = () => {
-  userRepo = getConnection().getRepository(User);
-}
-
-
 
 export let tokensList: string[] = [];
 
@@ -52,10 +29,10 @@ app.get('/details/:id', detailedUser);
 app.post('/signup', createUserView);
 app.post('/reauthenticate', reauthenticateView);
 
-app.listen(8080, function(){
+/*app.listen(8080, function(){
   console.info('Running in port 8080!');
 });
-
+*/
 /*createConnection({
   type: "postgres",
   host: "localhost",

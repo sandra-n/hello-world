@@ -1,11 +1,11 @@
 import { calculateHash } from "../../project-api/login/calculate-hash";
-import { userRepo } from "../../project-view";
+import { userRepo } from "../../project-view/db-setup";
 import { UserSignedUp } from "../../project-api/user/user-signed-up";
 import { User } from "../../entity/User";
 
 
 
-export async function registerUserDatasource(res, user: UserSignedUp): Promise<undefined> { //UserCreate
+export async function registerUserDatasource(user: UserSignedUp): Promise<string> { //UserCreate
 
   let hashedPassword = calculateHash(user.password);
 
@@ -18,7 +18,14 @@ export async function registerUserDatasource(res, user: UserSignedUp): Promise<u
     cpf: user.cpf
   }).execute();
 
-  return undefined;
+  const newUser = await userRepo.findOne({
+    where: {
+      name: user.name,
+      email: user.email,
+      hash: hashedPassword
+    }
+  })
+  return newUser.cpf;
   /*let hashedPassword = calculateHash(user.password);
   pool.query('INSERT INTO usuarios (name, email, cpf, birthDate, hash, role) VALUES\
 ($1, $2, $3, $4, $5, $6) RETURNING name', [user.name, user.email, user.cpf, user.birthDate, hashedPassword, user.role])
@@ -35,3 +42,4 @@ export async function registerUserDatasource(res, user: UserSignedUp): Promise<u
   })
   */
 }
+// module.exports = registerUserDatasource;

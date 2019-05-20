@@ -10,5 +10,6 @@ export function createUserView(req, res) {
   let role = req.body.role;
 
   let newUser = new UserSignedUp(name, email, cpf, birthDate, password, role);
-  registerUserDatasource(res, newUser);
+  //registerUserDatasource(res, newUser);
+  return registerUserDatasource(newUser);
 }

@@ -1,4 +1,4 @@
-import { userRepo } from '../../project-view/';
+import { userRepo } from '../../project-view/db-setup';
 import { verifyToken } from '../../project-api/tokens/token';
 import { User } from '../../entity/User';
 

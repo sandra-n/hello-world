@@ -1,5 +1,5 @@
 //import { pool } from '../../project-view';
-import { userRepo } from '../../project-view'
+import { userRepo } from '../../project-view/db-setup'
 import { User } from '../../entity/User';
 
 export async function checkUserLoginDatasource(email: string, hashUser: string): Promise<boolean> {

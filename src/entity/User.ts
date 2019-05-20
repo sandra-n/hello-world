@@ -24,6 +24,6 @@ export class User {
     @Column("varchar", {length: 500})
     hash: string;
 
-    @Column("varchar", {length: 500})
+    @Column("varchar", {nullable: true,  length: 500})
     refreshToken: string;
 }

@@ -1,6 +1,6 @@
 //import jwt from 'jsonwebtoken';
 import jwt = require('jsonwebtoken');
-import { userRepo } from '../../project-view';
+import { userRepo } from '../../project-view/db-setup';
 import { resolve } from 'path';
 //import { pool } from '../../project-view/';
 
@@ -8,7 +8,7 @@ const refreshSecret: string = "senhaparaorefresh";
 
 export async function setRefreshToken(email: string): Promise<string> {
   const payload = {
-    "email": email
+    email
   }
   const userRefreshToken = jwt.sign(payload, refreshSecret, {expiresIn: 500000}); //50 min
 
