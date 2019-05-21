@@ -22,9 +22,6 @@ test('testing creation of new user', async (done) => {
   done();
 
 
-
-
-
   //const f = await getConnection().manager.find(User)
   //console.log(f)
   //done();
