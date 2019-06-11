@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToMany} from "typeorm";
+import { Tag } from "./Tag";
 
 @Entity({name: "user"})
 export class User {
@@ -26,4 +27,9 @@ export class User {
 
     @Column("varchar", {nullable: true,  length: 500})
     refreshToken: string;
+
+    @ManyToMany(type => Tag, tag => tag.users, {
+      eager: true
+    })
+    tags: Tag[];
 }

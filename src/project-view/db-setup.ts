@@ -2,11 +2,10 @@ import "reflect-metadata";
 import { createConnection, getConnection, Repository, Connection, Server, getRepository } from "typeorm";
 import { User } from "../entity/User";
 import { app } from '../project-view/index';
-
-
-export let userRepo: Repository<User>;
+import { Tag } from "../entity/Tag";
 
 export async function dbSetup(): Promise<Connection> {
+  console.log('entrou aqui');
   let con = await createConnection({
     type: "postgres",
     host: "localhost",
@@ -14,12 +13,13 @@ export async function dbSetup(): Promise<Connection> {
     username: "sandra",
     password: "login",
     database: "listausuarios",
-    entities: [User],
+    entities: [User, Tag],
     synchronize: true,
     logging: false
   })
+  //console.log('oi', con);
   // getConnection().getRepository(User);
-  userRepo = getConnection().getRepository(User);
+
   return con;
   //initialize();
   /*.then(async connection => {
@@ -34,8 +34,8 @@ export async function dbSetup(): Promise<Connection> {
 }
 
 export function serverSetup() {
-  const serv = app.listen(8080, function () {
+  const ser = app.listen(8080, function () {
     console.info('Running in port 8080!');
   });
-  return serv;
+  return ser;
 }

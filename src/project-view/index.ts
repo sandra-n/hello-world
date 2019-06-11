@@ -7,6 +7,7 @@ import { reauthenticateView } from './reauthentication/reauthenticate-view';
 import { detailedUser } from './user-details/detailed-user';
 import { getUsersListView } from './users-list/get-users-list-view';
 import "reflect-metadata";
+import { dbSetup, serverSetup } from './db-setup';
 
 
 export const app: express.Application = express();
@@ -22,6 +23,10 @@ app.use(bodyParser.json())
 */
 
 export let tokensList: string[] = [];
+// async() => {
+//   await dbSetup();
+// }
+// serverSetup();
 
 app.post('/login', performLogin);
 app.get('/users', getUsersListView); //'/users?offset={}&numberResults={}'

@@ -7,7 +7,7 @@ export function setToken(email: string): string {
   const payload = {
     "email": email
   }
-  const token = jwt.sign(payload, secret, {expiresIn: 10});
+  const token = jwt.sign(payload, secret, {expiresIn: 100000});
   return token; //5 min
 }
 

@@ -1,9 +1,13 @@
-import { userRepo } from '../../project-view/db-setup';
+//import { userRepo } from '../../project-view/db-setup';
 import { verifyRefreshToken, setRefreshToken } from '../../project-api/refreshtoken/refreshtoken';
 import { setToken } from '../../project-api/tokens/token';
 import { User } from '../../entity/User';
+import { getConnection } from 'typeorm';
+import { Tag } from '../../entity/Tag';
 
 export async function reauthenticateDatasource(res, completeRefreshToken: string): Promise<User | undefined>{
+  const userRepo = getConnection().getRepository(User);
+  const tagRepo = getConnection().getRepository(Tag);
   let refreshToken = completeRefreshToken.split(" ", 2)[1];
   const result = await userRepo.findOne({
     where: {

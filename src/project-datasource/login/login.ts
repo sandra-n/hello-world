@@ -1,9 +1,10 @@
 //import { pool } from '../../project-view';
-import { userRepo } from '../../project-view/db-setup'
 import { User } from '../../entity/User';
+import { getConnection } from 'typeorm';
 
 export async function checkUserLoginDatasource(email: string, hashUser: string): Promise<boolean> {
 
+  const userRepo = getConnection().getRepository(User);
   const result = await userRepo.findOne({
     email: email,
     hash: hashUser

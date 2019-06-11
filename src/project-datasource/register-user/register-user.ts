@@ -1,12 +1,12 @@
 import { calculateHash } from "../../project-api/login/calculate-hash";
-import { userRepo } from "../../project-view/db-setup";
+//import { userRepo } from "../../project-view/db-setup";
 import { UserSignedUp } from "../../project-api/user/user-signed-up";
 import { User } from "../../entity/User";
-
-
+import { getConnection } from "typeorm";
 
 export async function registerUserDatasource(user: UserSignedUp): Promise<string> { //UserCreate
 
+  const userRepo = getConnection().getRepository(User);
   let hashedPassword = calculateHash(user.password);
 
   const result = await userRepo.createQueryBuilder("User").insert().into(User).values({
@@ -25,6 +25,7 @@ export async function registerUserDatasource(user: UserSignedUp): Promise<string
       hash: hashedPassword
     }
   })
+
   return newUser.cpf;
   /*let hashedPassword = calculateHash(user.password);
   pool.query('INSERT INTO usuarios (name, email, cpf, birthDate, hash, role) VALUES\

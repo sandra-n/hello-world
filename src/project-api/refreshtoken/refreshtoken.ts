@@ -1,12 +1,15 @@
 //import jwt from 'jsonwebtoken';
 import jwt = require('jsonwebtoken');
-import { userRepo } from '../../project-view/db-setup';
+//import { userRepo } from '../../project-datasource/login/login';
 import { resolve } from 'path';
+import { getConnection } from 'typeorm';
+import { User } from '../../entity/User';
 //import { pool } from '../../project-view/';
 
 const refreshSecret: string = "senhaparaorefresh";
 
 export async function setRefreshToken(email: string): Promise<string> {
+  const userRepo = getConnection().getRepository(User);
   const payload = {
     email
   }
